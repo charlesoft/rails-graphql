@@ -6,5 +6,12 @@ module Types
     def blogs
       Blog.preload(:user)
     end
+
+    field :blog, Types::BlogType, null: false, description: "Fetches a blog by the given ID" do
+      argument :id, ID, required: :true
+    end
+    def blog(id:)
+      Blog.find(id)
+    end
   end
 end
