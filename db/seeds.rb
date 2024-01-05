@@ -11,7 +11,9 @@
 
 5.times do
   first_name = Faker::Name.first_name
-  User.create!(first_name: first_name, last_name: Faker::Name.last_name, email: "#{first_name}@test.com")
+  password = "#{rand(100000..999999)}"
+
+  User.create!(first_name: first_name, last_name: Faker::Name.last_name, email: "#{first_name}@test.com", password: password, password_confirmation: password)
 end
 
 20.times do
