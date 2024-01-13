@@ -4,15 +4,18 @@ module Mutations
 
     argument :title, String, required: true
     argument :description, String, required: true
-    argument :user_id, ID, required: true
 
     type Types::BlogType
 
-    def resolve(title: nil, description: nil, user_id: nil)
+    def self.visible?(context)
+      super && context[:current_user].present?
+    end
+
+    def resolve(title: nil, description: nil)
       Blog.create!(
         title: title,
         description: description,
-        user_id: user_id
+        user: context[:current_user]
       )
     end
   end
