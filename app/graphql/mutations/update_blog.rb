@@ -3,14 +3,13 @@ module Mutations
     # arguments passed to the resolve method
 
     argument :id, ID, required: true
-    argument :user_id, ID, required: true
     argument :title, String, required: false
     argument :description, String, required: false
 
     type Types::BlogType
 
     def resolve(args)
-      user = User.find(args[:user_id])
+      user = context[:current_user]
       blog = user.blogs.find(args[:id])
       args.delete(:id)
 
